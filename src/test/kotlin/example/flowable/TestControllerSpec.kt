@@ -24,7 +24,7 @@ class TestControllerSpec: StringSpec() {
     init {
         "@blocking annotated controllers should return string indicating the thread is on the io pool not the event pool" {
             val rsp: String = client.toBlocking().retrieve("/test/reactiveblocking")
-            rsp shouldContain "pool"
+            rsp shouldContain "pool-"
         }
     }
 }
