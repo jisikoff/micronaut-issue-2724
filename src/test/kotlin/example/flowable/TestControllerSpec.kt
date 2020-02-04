@@ -1,5 +1,6 @@
 package example.flowable
 
+import io.kotlintest.matchers.string.shouldContain
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
 import io.micronaut.http.client.HttpClient
@@ -21,9 +22,9 @@ class TestControllerSpec: StringSpec() {
 
 
     init {
-        "should return something - not hang!" {
-            val rsp: String = client.toBlocking().retrieve("/test/hangs")
-            rsp shouldBe "onetwothree"
+        "@blocking annotated controllers should return string indicating the thread is on the io pool not the event pool" {
+            val rsp: String = client.toBlocking().retrieve("/test/reactiveblocking")
+            rsp shouldContain "pool"
         }
     }
 }
